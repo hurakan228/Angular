@@ -1,0 +1,11 @@
+.preview {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .preview-img {
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+  

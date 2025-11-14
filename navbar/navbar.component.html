@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <a routerLink="/">FoodApp</a>
+  </div>
+  
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      Главная
+    </a>
+    <a routerLink="/about" routerLinkActive="active">
+      О нас
+    </a>
+    <a routerLink="/items" routerLinkActive="active">
+      Меню
+    </a>
+    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+      Корзина ({{ getCartItemCount() }})
+    </a>
+    <a routerLink="/login" routerLinkActive="active">
+      Вход
+    </a>
+  </div>
+</nav>
