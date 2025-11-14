@@ -1,0 +1,46 @@
+<div class="item-details">
+  <div class="loading" *ngIf="loading">
+    <p>Загрузка информации о блюде...</p>
+  </div>
+
+  
+  <div class="error" *ngIf="error && !loading">
+    <p>{{ error }}</p>
+    <button (click)="loadItem()">Повторить</button>
+    <button (click)="goBack()">Назад</button>
+  </div>
+
+  <div *ngIf="item && !loading && !error">
+    <div class="item-header">
+      <h1>{{ item.name }}</h1>
+      <button class="back-button" (click)="goBack()">← Назад</button>
+    </div>
+    
+    <div class="item-content">
+      <div class="item-image">
+        <img [src]="item.image" [alt]="item.name">
+      </div>
+      
+      <div class="item-info">
+        <p class="description"><strong>Описание:</strong> {{ item.description }}</p>
+        <p class="category"><strong>Категория:</strong> {{ item.category }}</p>
+        <p class="price"><strong>Цена:</strong> {{ item.price }} ₸</p>
+        <p class="rating"><strong>Рейтинг:</strong> {{ item.rating }}/5 ⭐</p> 
+        <p class="id"><strong>ID:</strong> {{ item.id }}</p>
+        
+        <div class="ingredients" *ngIf="item.ingredients.length > 0">
+          <h3>Ингредиенты:</h3>
+          <ul>
+            <li *ngFor="let ingredient of item.ingredients">{{ ingredient }}</li>
+          </ul>
+        </div>
+        
+        <div class="actions">
+          <button class="add-to-cart" (click)="addToCart(item)">
+            Добавить в корзину
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
