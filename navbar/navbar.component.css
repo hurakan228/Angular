@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 15px;
+  background-color: #ff7043;
+  font-size: 18px;
+  border-radius: 0 0 20px 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  text-decoration: underline;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.cart-link {
+  background: #ff6b6b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.cart-link:hover,
+.cart-link.active {
+  background: #ff5252;
+  text-decoration: none;
+}

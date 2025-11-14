@@ -1,0 +1,88 @@
+<div class="add-item-form">
+  <h3>➕ Добавить новое блюдо</h3>
+  
+  <form (ngSubmit)="addItem()" enctype="multipart/form-data">
+    <div class="form-group">
+      <input 
+        type="text" 
+        [(ngModel)]="newItem.name" 
+        name="name" 
+        placeholder="Название блюда" 
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <input 
+        type="number" 
+        [(ngModel)]="newItem.price" 
+        name="price" 
+        placeholder="Цена в тенге" 
+        min="1"
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <select [(ngModel)]="newItem.category" name="category" class="form-select">
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <!-- ДОБАВЬТЕ ЭТОТ БЛОК ДЛЯ РЕЙТИНГА -->
+    <div class="form-group">
+      <input 
+        type="number" 
+        [(ngModel)]="newItem.rating" 
+        name="rating" 
+        placeholder="Рейтинг (0-5)" 
+        min="0" 
+        max="5" 
+        step="0.1"
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <textarea 
+        [(ngModel)]="newItem.description" 
+        name="description" 
+        placeholder="Описание блюда"
+        class="form-textarea"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Ингредиенты:</label>
+      <div *ngFor="let ingredient of newItem.ingredients; let i = index" class="ingredient-row">
+        <input 
+          type="text" 
+          [(ngModel)]="newItem.ingredients[i]" 
+          [name]="'ingredient' + i"
+          placeholder="Ингредиент"
+          class="form-input">
+        <button type="button" (click)="removeIngredient(i)" class="remove-ingredient">×</button>
+      </div>
+      <button type="button" (click)="addIngredient()" class="add-ingredient">+ Добавить ингредиент</button>
+    </div>
+
+    <div class="form-group">
+      <label>Изображение блюда:</label>
+      <input 
+        type="file" 
+        (change)="onImageSelected($event)" 
+        accept="image/*"
+        class="form-file">
+    </div>
+
+    <div *ngIf="previewImage" class="preview">
+      <img [src]="previewImage" alt="Предпросмотр" class="preview-img">
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="isSubmitting"
+      class="submit-btn">
+      {{ isSubmitting ? 'Добавляем...' : 'Добавить блюдо' }}
+    </button>
+  </form>
+</div>
