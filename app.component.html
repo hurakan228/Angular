@@ -1,0 +1,68 @@
+<!-- NgRx Diagnostic Panel -->
+<div class="diagnostic-panel" style="padding: 15px; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <h3 style="margin: 0; color: #495057;">NgRx Diagnostics</h3>
+      <small style="color: #6c757d;">Store: items | Items count: {{itemsCount}} | Loading: {{isLoading}}</small>
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+      <button (click)="dispatchTest()" class="btn btn-primary">
+        Test NgRx Action
+      </button>
+      <button (click)="checkState()" class="btn btn-info">
+        Check Store State
+      </button>
+      <button (click)="clearState()" class="btn btn-secondary">
+        Clear
+      </button>
+    </div>
+  </div>
+
+  @if (diagnosticMessage) {
+    <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 4px solid #007bff;">
+      {{ diagnosticMessage }}
+    </div>
+  }
+</div>
+
+
+<app-navbar></app-navbar>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<style>
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .main-content {
+    padding: 20px;
+    min-height: calc(100vh - 150px);
+  }
+</style>
