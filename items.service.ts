@@ -1,79 +1,59 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { Item } from '../models/item.model';
+import { Observable } from 'rxjs';
+import { Item } from '../../models/item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
-  
-  constructor(private http: HttpClient) {
-    console.log('✅ ItemsService created');
-  }
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts'; // временный URL для демо
+
+  constructor(private http: HttpClient) {}
 
   getItems(query?: string): Observable<Item[]> {
-    console.log('📞 ItemsService.getItems() called with query:', query || 'none');
-    
-    // Mock данные - замените на реальный API
-    const mockItems: Item[] = [
-      { 
-        id: 1, 
-        name: 'Pizza Margherita', 
-        description: 'Classic pizza with tomato and mozzarella', 
-        price: 12.99, 
-        category: 'Pizza',
-        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400'
-      },
-      { 
-        id: 2, 
-        name: 'Pasta Carbonara', 
-        description: 'Creamy pasta with bacon and egg', 
-        price: 14.99, 
-        category: 'Pasta',
-        image: 'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400'
-      },
-      { 
-        id: 3, 
-        name: 'Caesar Salad', 
-        description: 'Fresh salad with Caesar dressing', 
-        price: 9.99, 
-        category: 'Salad',
-        image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400'
-      }
-    ];
-
-    // Фильтрация по query если есть
-    let filteredItems = mockItems;
-    if (query) {
-      filteredItems = mockItems.filter(item => 
-        item.name.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-
-
-    return of(filteredItems).pipe(delay(500));
-  }
-
-  getItemById(id: string | number): Observable<Item> {
-    console.log('📞 ItemsService.getItemById() called with id:', id);
-    
-
+    // Временные данные для демонстрации
     const mockItems: Item[] = [
       { id: 1, name: 'Pizza Margherita', description: 'Classic pizza with tomato and mozzarella', price: 12.99, category: 'Pizza' },
       { id: 2, name: 'Pasta Carbonara', description: 'Creamy pasta with bacon and egg', price: 14.99, category: 'Pasta' },
-      { id: 3, name: 'Caesar Salad', description: 'Fresh salad with Caesar dressing', price: 9.99, category: 'Salad' }
+      { id: 3, name: 'Caesar Salad', description: 'Fresh salad with Caesar dressing', price: 9.99, category: 'Salad' },
+      { id: 4, name: 'Burger', description: 'Beef burger with cheese and vegetables', price: 11.99, category: 'Burger' }
     ];
 
-    const item = mockItems.find(i => i.id == id);
-    
-    if (item) {
-      return of(item).pipe(delay(300));
-    } else {
-      throw new Error(`Item with id ${id} not found`);
-    }
+    return new Observable(observer => {
+      setTimeout(() => {
+        if (query) {
+          const filtered = mockItems.filter(item => 
+            item.name.toLowerCase().includes(query.toLowerCase()) ||
+            item.description.toLowerCase().includes(query.toLowerCase())
+          );
+          observer.next(filtered);
+        } else {
+          observer.next(mockItems);
+        }
+        observer.complete();
+      }, 500); // имитация задержки сети
+    });
+  }
+
+  getItemById(id: string | number): Observable<Item> {
+    const mockItems: Item[] = [
+      { id: 1, name: 'Pizza Margherita', description: 'Classic pizza with tomato and mozzarella', price: 12.99, category: 'Pizza' },
+      { id: 2, name: 'Pasta Carbonara', description: 'Creamy pasta with bacon and egg', price: 14.99, category: 'Pasta' },
+      { id: 3, name: 'Caesar Salad', description: 'Fresh salad with Caesar dressing', price: 9.99, category: 'Salad' },
+      { id: 4, name: 'Burger', description: 'Beef burger with cheese and vegetables', price: 11.99, category: 'Burger' }
+    ];
+
+    return new Observable(observer => {
+      setTimeout(() => {
+        const item = mockItems.find(i => i.id == id);
+        if (item) {
+          observer.next(item);
+        } else {
+          observer.error('Item not found');
+        }
+        observer.complete();
+      }, 300);
+    });
   }
 }

@@ -1,0 +1,36 @@
+<div class="item-card">
+  <div class="item-image">
+    <img [src]="item.strMealThumb" [alt]="item.strMeal" />
+    <div class="item-badge" [class.vegetarian]="item.isVegetarian" 
+         [class.spicy]="item.isSpicy">
+      {{ item.isVegetarian ? '🌱 Vegan' : '' }}
+      {{ item.isSpicy ? '🌶️ Spicy' : '' }}
+    </div>
+  </div>
+  
+  <div class="item-info">
+    <h3 class="item-name">{{ item.strMeal }}</h3>
+    <div class="item-meta">
+      <span class="category">{{ item.strCategory }}</span>
+      <span class="area">{{ item.strArea }}</span>
+      <span class="rating">⭐ {{ item.rating?.toFixed(1) || '4.5' }}</span>
+    </div>
+    
+    <p class="item-description">
+      {{ (item.strInstructions || '').substring(0, 100) }}...
+    </p>
+    
+    <div class="item-details">
+      <span>⏱️ {{ item.cookingTime }} min</span>
+      <span>🔥 {{ item.calories }} cal</span>
+      <span>📊 {{ item.difficulty }}</span>
+    </div>
+    
+    <div class="item-footer">
+      <span class="price">${{ item.price || '15.99' }}</span>
+      <button [routerLink]="['/items', item.idMeal]" class="btn-detail">Details</button>
+
+    
+    </div>
+  </div>
+</div>

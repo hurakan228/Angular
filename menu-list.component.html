@@ -1,0 +1,70 @@
+<div *ngIf="loading$ | async" class="loading">
+  <div class="spinner"></div>
+  Loading menu...
+</div>
+
+<div *ngIf="error$ | async as error" class="error">
+  ⚠️ Error: {{ error }}
+  <br>
+  <small>Showing cached/mock data</small>
+</div>
+
+<div class="controls" *ngIf="!(loading$ | async)">
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="query"
+      (ngModelChange)="onSearchChange($event)"
+      placeholder="Search dishes..."
+    />
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <div class="filters">
+    <label>Category:</label>
+
+    <!-- временно, категории у тебя вообще нет -->
+    <select [(ngModel)]="category" (ngModelChange)="onCategoryChange($event)">
+      <option value="all">All Categories</option>
+      <option value="Beef">Beef</option>
+      <option value="Chicken">Chicken</option>
+      <option value="Dessert">Dessert</option>
+    </select>
+
+    <label>Items per page:</label>
+    <select [(ngModel)]="limit" (ngModelChange)="onLimitChange($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+</div>
+
+<div *ngIf="!(loading$ | async) && !(error$ | async)" class="items-grid">
+  <div *ngFor="let item of (items$ | async)" class="item-card">
+    <div class="item-image">
+      <img [src]="item.strMealThumb" [alt]="item.strMeal" />
+    </div>
+
+    <div class="item-info">
+      <h3>{{ item.strMeal }}</h3>
+      <div class="item-meta">
+        <span class="category">{{ item.strCategory }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(items$ | async)?.length && !(loading$ | async)" class="pagination">
+  <button (click)="prevPage()" [disabled]="page <= 1">⬅ Previous</button>
+
+  <span class="page-info">
+    Page {{ page }}
+  </span>
+
+  <button (click)="nextPage()">Next ➡</button>
+</div>
+
+<div *ngIf="(items$ | async)?.length === 0 && !(loading$ | async)" class="empty-state">
+  🍴 No dishes found.
+</div>

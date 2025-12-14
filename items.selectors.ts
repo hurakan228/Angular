@@ -3,32 +3,35 @@ import { ItemsState } from './items.reducer';
 
 export const selectItemsState = createFeatureSelector<ItemsState>('items');
 
-export const selectAllItems = createSelector(
+export const selectItems = createSelector(
   selectItemsState,
   (state: ItemsState) => state.items
 );
 
 export const selectItemsLoading = createSelector(
   selectItemsState,
-  (state: ItemsState) => state.loadingList
+  (state: ItemsState) => state.loading
 );
 
 export const selectItemsError = createSelector(
   selectItemsState,
-  (state: ItemsState) => state.errorList
+  (state: ItemsState) => state.error
 );
 
-export const selectSelectedItem = createSelector(
+export const selectItemsTotal = createSelector(
   selectItemsState,
-  (state: ItemsState) => state.selectedItem
+  (state: ItemsState) => state.total
 );
 
-export const selectItemDetailsLoading = createSelector(
+export const selectItemsPage = createSelector(
   selectItemsState,
-  (state: ItemsState) => state.loadingDetails
+  (state: ItemsState) => state.page
 );
 
-export const selectItemDetailsError = createSelector(
+export const selectItemsLimit = createSelector(
   selectItemsState,
-  (state: ItemsState) => state.errorDetails
+  (state: ItemsState) => state.limit
 );
+
+export const selectItemById = (id: string) =>
+  createSelector(selectItems, (items) => items.find(item => item.idMeal === id));

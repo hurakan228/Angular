@@ -1,0 +1,13 @@
+<div *ngIf="item$ | async as item">
+  <h2>{{ item.strMeal }}</h2>
+  <img [src]="item.strMealThumb" alt="{{ item.strMeal }}">
+  <p>Category: {{ item.strCategory }}</p>
+  <p>Area: {{ item.strArea }}</p>
+  <span *ngIf="item.isVegetarian">🌱 Vegetarian</span>
+  <span *ngIf="item.isSpicy">🌶️ Spicy</span>
+  <p>Difficulty: {{ item.difficulty }}</p>
+  <p>{{ item.strInstructions }}</p>
+  <div *ngIf="item.strYoutube">
+    <a [href]="item.strYoutube" target="_blank">🎬 Watch on YouTube</a>
+  </div>
+</div>

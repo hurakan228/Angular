@@ -1,0 +1,19 @@
+<div *ngIf="cartItems$ | async as cartItems">
+  <button *ngIf="cartItems.length > 0" (click)="clearCart()">Очистить корзину</button>
+
+  <div *ngIf="cartItems.length === 0">
+    Ваша корзина пуста
+  </div>
+
+  <div *ngFor="let cartItem of cartItems" class="cart-item">
+    <img [src]="cartItem.menuItem.strMealThumb" alt="" width="50">
+    <span>{{ cartItem.menuItem.strMeal }}</span>
+    <span>{{ cartItem.menuItem.price }}₸</span>
+    <input type="number" [value]="cartItem.quantity" (change)="updateQuantity(cartItem.menuItem.idMeal, $event.target.valueAsNumber)">
+    <button (click)="removeItem(cartItem.menuItem.idMeal)">Удалить</button>
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    Итого: {{ cartTotal$ | async }}₸
+  </div>
+</div>

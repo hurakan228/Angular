@@ -25,7 +25,9 @@ export class AppComponent {
 
     this.store.subscribe(state => {
       this.itemsCount = state.items.items?.length || 0;
-      this.isLoading = state.items.loadingList;
+      this.isLoading = state.items.loading;
+      console.log(`• Loading: ${state.items.loading}`);
+      console.log(`• Error: ${state.items.error || 'none'}`);
       console.log('📊 Store subscription update:', { 
         itemsCount: this.itemsCount, 
         isLoading: this.isLoading 
@@ -52,8 +54,8 @@ export class AppComponent {
       console.log('🔍 Current store state:', state);
       this.diagnosticMessage = `📊 Store State:
         • Items: ${state.items.items?.length || 0}
-        • Loading: ${state.items.loadingList}
-        • Error: ${state.items.errorList || 'none'}`;
+        • Loading: ${state.items.loading}
+        • Error: ${state.items.error || 'none'}`;
     }).unsubscribe(); 
   }
 
